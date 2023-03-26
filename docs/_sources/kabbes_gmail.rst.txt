@@ -1,0 +1,29 @@
+kabbes\_gmail package
+=====================
+
+Submodules
+----------
+
+kabbes\_gmail.Connection module
+-------------------------------
+
+.. automodule:: kabbes_gmail.Connection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_gmail.Email module
+--------------------------
+
+.. automodule:: kabbes_gmail.Email
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: kabbes_gmail
+   :members:
+   :undoc-members:
+   :show-inheritance:
