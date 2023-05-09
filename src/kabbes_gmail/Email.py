@@ -22,6 +22,8 @@ class Email( ParentClass ):
         if print_off:
            print ('Sending email to ' + str(self.to))
 
+        self.conn.conn.send( self.to, self.subject, self.content )
+
         try:
             self.conn.conn.send( self.to, self.subject, self.content )
         except:

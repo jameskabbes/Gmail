@@ -8,3 +8,4 @@ _cwd_Dir = do.Dir( do.get_cwd() )
 
 from .Connection import *
 from .Email import *
+from .Client import Client
