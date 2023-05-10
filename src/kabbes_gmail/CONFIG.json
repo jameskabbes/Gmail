@@ -1,5 +1,8 @@
 {
-    "email_address": null,
-    "app_password": null,
-    "load_credentials": true
+    "SCOPES":[ "https://www.googleapis.com/auth/gmail.readonly",
+                "https://www.googleapis.com/auth/gmail.send" 
+            ],
+
+    "service_name": "gmail",
+    "version": "v1"            
 }

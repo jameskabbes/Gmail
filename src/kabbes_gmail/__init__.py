@@ -6,6 +6,5 @@ _src_Dir = _Dir.ascend()                                  #src Dir that is one a
 _repo_Dir = _src_Dir.ascend()                    
 _cwd_Dir = do.Dir( do.get_cwd() )
 
-from .Connection import *
-from .Email import *
+from .Email import Email
 from .Client import Client

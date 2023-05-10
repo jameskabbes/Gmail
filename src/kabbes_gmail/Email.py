@@ -1,34 +1,37 @@
 from parent_class import ParentClass
 import py_starter as ps
+import base64
+from email.message import EmailMessage
 
 class Email( ParentClass ):
 
-    DEFAULT_KWARGS = {
-        'to': None,
-        'subject': None,
-        'content': []
-    }
+    _IMP_ATTS = ['to','sender','subject','content']
 
-    def __init__( self, conn, **kwargs ):
+    def __init__( self, conn, to=None, sender=None, subject=None, content=None ):
 
         ParentClass.__init__( self )
         self.conn = conn
+        self.to = to
+        self.sender = sender
+        self.subject = subject
+        self.content = content
 
-        joined_kwargs = ps.merge_dicts( Email.DEFAULT_KWARGS, kwargs )
-        self.set_atts( joined_kwargs )
+    def compose( self ):
+        message = EmailMessage()
+        message.set_content( self.content )
+        message['To'] = self.to
+        message['From'] = self.sender
+        message['Subject'] = self.subject
 
-    def send( self, print_off: bool = True ):
-        
-        if print_off:
-           print ('Sending email to ' + str(self.to))
+        # encoded message
+        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+        self.create_message = { 'raw': encoded_message }
+        # pylint: disable=E1101
 
-        self.conn.conn.send( self.to, self.subject, self.content )
 
-        try:
-            self.conn.conn.send( self.to, self.subject, self.content )
-        except:
-            return False
-        return True
+    def send( self ):
+        self.compose()
+        return self.conn.service.users().messages().send(userId="me", body=self.create_message).execute()
 
     @staticmethod
     def make_html_link( link_address, link_text_to_show ):

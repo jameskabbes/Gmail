@@ -1,11 +1,17 @@
 import kabbes_gmail
+import py_starter as ps
 c = kabbes_gmail.Client()
-c.print_atts()
 
-e = kabbes_gmail.Email(
-    c,
-    to = 'james.kabbes@gmail.com',
-    subject = 'test',
-    content = ['This is a test']
+c.cfg.print_atts()
+
+e = kabbes_gmail.Email( 
+    c, 
+    to='james.kabbes@gmail.com', 
+    sender='james.kabbes@gmail.com',
+    subject='Test', 
+    content='Howdy there!' 
 )
-print ( e.send( print_off = True ) )
+
+e.print_atts()
+if ps.confirm_raw('This will send a test email. '):
+    print ( e.send() )
