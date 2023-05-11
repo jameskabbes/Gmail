@@ -1,7 +1,8 @@
 from parent_class import ParentClass
 import py_starter as ps
 import base64
-from email.message import EmailMessage
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 class Email( ParentClass ):
 
@@ -17,17 +18,15 @@ class Email( ParentClass ):
         self.content = content
 
     def compose( self ):
-        message = EmailMessage()
-        message.set_content( self.content )
-        message['To'] = self.to
-        message['From'] = self.sender
-        message['Subject'] = self.subject
+        message = MIMEMultipart()
+        message['to'] = self.to
+        message['from'] = self.sender
+        message['subject'] = self.subject
+
+        message.attach(MIMEText( self.content, 'html'))
 
         # encoded message
-        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
-        self.create_message = { 'raw': encoded_message }
-        # pylint: disable=E1101
-
+        self.create_message = { 'raw': base64.urlsafe_b64encode(message.as_bytes()).decode() }
 
     def send( self ):
         self.compose()
